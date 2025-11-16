@@ -24,3 +24,96 @@ body {
   min-height: 100vh;
   padding-bottom: 50px;
 }
+header {
+  background-color: var(--color-bg-card);
+  padding: 20px 0;
+  text-align: center;
+  border-bottom: 3px solid var(--color-primary);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+h1, h2, h3 {
+  color: var(--color-secondary);
+  font-weight: 700;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px; 
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+.btn-secondary {
+  background-color: var(--color-border);
+  color: var(--color-secondary);
+}
+.btn-success {
+  background-color: var(--color-success); 
+}
+.btn-danger {
+  background-color: var(--color-danger); 
+  color: white;
+}
+
+.container {
+  max-width: 95vw;
+  margin: 0 auto;
+  display: flex;
+  gap: 25px;
+}
+
+#sidebar {
+  flex: 1;
+  min-width: 280px;
+}
+.unassigned-panel {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+#noUnassignedMsg {
+    color: #7f8c8d;
+    text-align: center;
+    padding: 10px 0;
+    font-style: italic;
+}
+.employenonassi {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: #f9fbfd;
+  cursor: pointer;
+}
+.parentimg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+.imgempl {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.employe-info {
+  flex-grow: 1;
+}
