@@ -1,0 +1,26 @@
+:root {
+  --color-primary: #3498db; 
+  --color-secondary: #2c3e50; 
+  --color-bg-main: #f4f7f9; 
+  --color-bg-card: #ffffff;
+  --color-border: #ecf0f1; 
+  --color-success: #2ecc71; 
+  --color-danger: #e74c3c; 
+  --color-warning: #f39c12; 
+  --color-zone-alert: #fdeaea; 
+  --font-main: "Inter", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg-main);
+  color: var(--color-secondary);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
