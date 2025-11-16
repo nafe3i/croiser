@@ -117,3 +117,60 @@ h1, h2, h3 {
 .employe-info {
   flex-grow: 1;
 }
+main {
+  flex: 3;
+}
+.floor-plan {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.zone {
+  position: relative;
+  border: 2px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg-card);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.required-zone.required-zone-empty {
+  border-color: var(--color-danger);
+  background-color: var(--color-zone-alert); 
+}
+.required-zone-empty .zone-warning {
+  display: block;
+  color: var(--color-danger);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 5px;
+}
+.zone-warning {
+  display: none;
+}
+
+.addZoneEmployeeBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.zone-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 5px;
+}
