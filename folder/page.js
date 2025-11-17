@@ -95,6 +95,28 @@ function closeModal(modal) {
 function closeProfileModal() {
     closeModal(profileModal);
 }
+
+addExperienceBtn.addEventListener("click", () => {
+  const expDiv = document.createElement("div");
+  expDiv.className = "experience-item";
+
+  expDiv.innerHTML = `
+      <button type="button" class="removeExp btn-danger" style="position: absolute; top: 5px; right: 5px; padding: 3px 8px; font-size: 0.8rem; border-radius: 4px;">&times;</button>
+      <label>Poste: <input type="text" placeholder="Poste occupé" class="posteExp" /></label>
+      <label>Entreprise: <input type="text" placeholder="Entreprise" class="entrepriseExp" /></label>
+      <div class="exp-dates">
+        <label>Début: <input type="number" min="1900" max="${new Date().getFullYear()}" placeholder="Ex: 2020" class="startYearExp" /></label>
+        <label>Fin: <input type="number" min="1900" max="${new Date().getFullYear()}" placeholder="Ex: 2023" class="endYearExp" /></label>
+      </div>
+  `;
+
+  expDiv.querySelector(".removeExp").addEventListener("click", () => {
+    expDiv.remove();
+  });
+
+  experiencesList.appendChild(expDiv);
+});
+
 function getExperiencesFromForm() {
   let experiences = [];
   let isDateValid = true;
