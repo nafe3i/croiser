@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestion du Personnel - WorkSphere</title>
+    <link rel="stylesheet" href="css_folder/page.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Workspace Staff Manager</h1>
+      <p>Gestion visuelle et interactive du personnel WorkSphere</p>
+    </header>
+
+    <div class="container">
+      <aside id="sidebar">
+        <section class="unassigned-panel">
+          <h2>Employés non assignés</h2>
+          <button id="addEmployeeBtn" class="btn btn-primary">
+             Ajouter un employé
+          </button>
+          <div id="unassignedList" class="unassignedList"></div>
+          <p id="noUnassignedMsg">Tous les employés sont assignés</p>
+        </section>
+      </aside>
+
+      <main>
+        <section class="floor-plan">
+          <div class="zone" data-zone="conference">
+            <h3>Salle de conférence</h3>
+            <span class="zone-count">0 / 10</span>
+            <button class="addZoneEmployeeBtn">+</button>
+            <div class="zone-list"></div>
+          </div>
+          <div
+            class="zone required-zone"
+            data-zone="reception"
+          >
+            <h3>Réception</h3>
+            <span class="zone-count">0 / 2</span>
+            <button class="addZoneEmployeeBtn">+</button>
+            <div class="zone-list"></div>
+            <p class="zone-warning">Zone requise - vide</p>
+          </div>
+          <div
+            class="zone required-zone"
+            data-zone="servers"
+          >
+            <h3>Salle des serveurs</h3>
+            <span class="zone-count">0 / 3</span>
+            <button class="addZoneEmployeeBtn">+</button>
+            <div class="zone-list"></div>
+            <p class="zone-warning">Zone requise - vide</p>
+          </div>
+          <div
+            class="zone required-zone"
+            data-zone="security"
+          >
+            <h3>Salle de sécurité</h3>
+            <span class="zone-count">0 / 4</span>
+            <button class="addZoneEmployeeBtn">+</button>
+            <div class="zone-list"></div>
+            <p class="zone-warning">Zone requise - vide</p>
+          </div>
+          <div class="zone" data-zone="staff">
+            <h3>Salle du personnel</h3>
+            <span class="zone-count">0 / 15</span>
+            <button class="addZoneEmployeeBtn">+</button>
+            <div class="zone-list"></div>
+          </div>
+          <div
+            class="zone required-zone"
+            data-zone="archives"
+          >
+            <h3>Salle d'archives</h3>
+            <span class="zone-count">0 / 5</span>
+            <button class="addZoneEmployeeBtn">+</button>
+            <div class="zone-list"></div>
+            <p class="zone-warning">Zone requise - vide</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="addEmployesform" class="modal modal-hidden">
+      <form id="employeeForm" class="modal-content">
+        <h2 id="modalTitle">Ajouter un employé</h2>
+        <div id="photoPreview"></div>
+        <div class="form-grid">
+          <label>Nom: <input id="nom" type="text" name="name" required /></label>
+          <label>Rôle:
+            <select id="selectAj" name="role" required>
+              <option value="" disabled selected hidden>Choisir un rôle:</option>
+              <option value="Réceptionniste">Réceptionniste</option>
+              <option value="Technicien IT">Technicien IT</option>
+              <option value="Agent de sécurité">Agent de sécurité</option>
+              <option value="Manager">Manager</option>
+              <option value="Nettoyage">Nettoyage</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </label>
+          <label>Photo (URL):
+            <input id="img" type="url" name="photo" placeholder="http://..." />
+          </label>
+          <label>Email:
+            <input
+              id="email"
+              type="email"
+              name="email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              required
+            />
+          </label>
+          <label>Téléphone:
+            <input
+              id="tel"
+              type="tel"
+              name="phone"
+              pattern="^(\+2126|(\+2127)|0[67])\d{8}$"
+              required
+            />
+          </label>
+        </div>
+
+        <div class="experience-section">
+          <label class="exp-title">Expériences professionnelles</label>
+          <div id="ajoutExper"></div>
+          <button type="button" id="addExperienceBtn" class="btn btn-add-exp btn-secondary">
+             Ajouter une expérience
+          </button>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" id="validerinfo" class="btn btn-success">Valider</button>
+          <button type="button" id="annulerinfo" class="btn btn-danger">Fermer</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="profileModal" class="modal modal-hidden">
+        </div>
+
+    <div id="assignModal" class="modal modal-hidden">
+      <div id="assignContent" class="modal-content assign-modal-content">
+        <h2>Choisir un employé à assigner</h2>
+        <p id="assignZoneTitle"></p>
+        <div id="assignList" class="assign-list-container"></div>
+        <button id="closeAssignModal" class="btn btn-danger">Fermer</button>
+      </div>
+    </div>
+  </body>
+  <script src="js_folder/page.js"></script>
+</html>
