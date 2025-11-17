@@ -523,3 +523,11 @@ ajouteEmployersBtn.addEventListener("click", () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  loadFromLocalStorage();
+  affichierEmployeer();
+  refreshZones();
+  previewPhoto(""); 
+});
+
+
