@@ -58,6 +58,10 @@ function loadFromLocalStorage() {
   }
 }
 
+fermerForme.addEventListener("click", () => closeModal(addEditEmployeeModal));
+employeeForm.addEventListener("submit", ajouterOuEditerEmployer);
+closeAssignModal.onclick = () => closeModal(assignModal);
+
 function resetForm() {
   employeeForm.reset();
   experiencesList.innerHTML = "";
