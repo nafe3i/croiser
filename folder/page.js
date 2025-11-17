@@ -502,6 +502,20 @@ function openAssignModal(zoneName) {
 }
 
 
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("addZoneEmployeeBtn")) {
+    const zone = e.target.closest(".zone").dataset.zone;
+    const count = storInfoEmploy.filter((em) => em.zone === zone).length;
+    
+    if (count >= zoneCapacity[zone]) {
+      alert("Zone pleine ! Impossible d'ajouter de nouveaux employés.");
+      return;
+    }
+    openAssignModal(zone);
+  }
+});
+
+
 ajouteEmployersBtn.addEventListener("click", () => {
   resetForm();
   previewPhoto("");
