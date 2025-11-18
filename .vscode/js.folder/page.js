@@ -67,3 +67,138 @@ function resetForm() {
   previewPhoto("");
 }
 
+function previewPhoto(url) {
+  photoPreviewDiv.innerHTML = "";
+  const img = document.createElement("img");
+  img.src = url || DEFAULT_PHOTO_URL;
+  img.onerror = () => {
+    img.src = DEFAULT_PHOTO_URL;
+  };
+  img.style = "width:60px;height:60px;border-radius:50%;object-fit:cover; margin: 10px 0; border: 3px solid var(--color-primary);";
+  photoPreviewDiv.appendChild(img);
+}
+imgInput.addEventListener("input", (e) => previewPhoto(e.target.value));
+
+
+function getExperiencesFromForm() {
+  let experiences = [];
+  let isDateValid = true;
+  
+  document.querySelectorAll(".experience-item").forEach((exp, index) => {
+    const poste = exp.querySelector(".posteExp").value.trim();
+    const entreprise = exp.querySelector(".entrepriseExp").value.trim();
+    const startYear = parseInt(exp.querySelector(".startYearExp").value);
+    const endYear = parseInt(exp.querySelector(".endYearExp").value);
+    
+    const isPartiallyFilled = poste || entreprise || !isNaN(startYear) || !isNaN(endYear);
+
+    if (isPartiallyFilled && (poste === "" || entreprise === "" || isNaN(startYear) || isNaN(endYear))) {
+      alert(`Erreur: Veuillez remplir tous les champs (Poste, Entreprise, Début, Fin) de l'expérience #${index + 1} ou la supprimer.`);
+      isDateValid = false;
+      return;
+    }
+
+    if (!isNaN(startYear) && !isNaN(endYear) && startYear > endYear) {
+      alert(
+        `Erreur: L'année de début (${startYear}) doit être antérieure ou égale à l'année de fin (${endYear}) pour l'expérience #${index + 1}.`
+      );
+      isDateValid = false;
+      return;
+    }
+
+    if (isPartiallyFilled) {
+        experiences.push({
+            poste: poste,
+            entreprise: entreprise,
+            startYear: startYear,
+            endYear: endYear,
+        });
+    }
+  });
+  return isDateValid ? experiences : null;
+}
+
+function openModal(modal) {
+  modal.classList.remove("modal-hidden");
+  container.style.opacity = "0.3";
+}
+
+function closeModal(modal) {
+  modal.classList.add("modal-hidden");
+  container.style.opacity = "1";
+}
+
+function closeProfileModal() {
+    closeModal(profileModal);
+}
+function getExperiencesFromForm() {
+  let experiences = [];
+  let isDateValid = true;
+  
+  document.querySelectorAll(".experience-item").forEach((exp, index) => {
+    const poste = exp.querySelector(".posteExp").value.trim();
+    const entreprise = exp.querySelector(".entrepriseExp").value.trim();
+    const startYear = parseInt(exp.querySelector(".startYearExp").value);
+    const endYear = parseInt(exp.querySelector(".endYearExp").value);
+    
+    const isPartiallyFilled = poste || entreprise || !isNaN(startYear) || !isNaN(endYear);
+
+    if (isPartiallyFilled && (poste === "" || entreprise === "" || isNaN(startYear) || isNaN(endYear))) {
+      alert(`Erreur: Veuillez remplir tous les champs (Poste, Entreprise, Début, Fin) de l'expérience #${index + 1} ou la supprimer.`);
+      isDateValid = false;
+      return;
+    }
+
+    if (!isNaN(startYear) && !isNaN(endYear) && startYear > endYear) {
+      alert(
+        `Erreur: L'année de début (${startYear}) doit être antérieure ou égale à l'année de fin (${endYear}) pour l'expérience #${index + 1}.`
+      );
+      isDateValid = false;
+      return;
+    }
+
+    if (isPartiallyFilled) {
+        experiences.push({
+            poste: poste,
+            entreprise: entreprise,
+            startYear: startYear,
+            endYear: endYear,
+        });
+    }
+  });
+  return isDateValid ? experiences : null;
+}
+function ajouterOuEditerEmployer(event) {
+  event.preventDefault();
+
+  if (!employeeForm.checkValidity()) {
+    return; 
+  }
+
+  const experiences = getExperiencesFromForm();
+  if (experiences === null) {
+    return;
+  }
+
+  const employeeData = {
+    name: nameInput.value.trim(),
+    role: roleSelect.value,
+    img: imgInput.value.trim() || DEFAULT_PHOTO_URL,
+    email: emailInput.value.trim(),
+    tel: telInput.value.trim(),
+    zone: isEditMode && editingIndex !== -1 ? storInfoEmploy[editingIndex].zone : null,
+    experiences: experiences,
+  };
+
+  if (isEditMode && editingIndex !== -1) {
+    storInfoEmploy[editingIndex] = employeeData; 
+  } else {
+    storInfoEmploy.push(employeeData); 
+  }
+  closeModal(addEditEmployeeModal);
+  resetForm();
+  saveToLocalStorage();
+  affichierEmployeer();
+  refreshZones();
+}
+
