@@ -58,3 +58,12 @@ function loadFromLocalStorage() {
   }
 }
 
+function resetForm() {
+  employeeForm.reset();
+  experiencesList.innerHTML = "";
+  isEditMode = false;
+  editingIndex = -1;
+  document.getElementById("modalTitle").textContent = "Ajouter un employé";
+  previewPhoto("");
+}
+
