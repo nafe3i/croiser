@@ -372,3 +372,18 @@ function deleteEmployee(index) {
 }
 
 
+function checkZoneWarnings() {
+  document.querySelectorAll(".required-zone").forEach((zoneEl) => {
+    const zoneName = zoneEl.dataset.zone;
+    if (zoneName !== 'conference' && zoneName !== 'staff') {
+        const count = storInfoEmploy.filter((e) => e.zone === zoneName).length;
+
+        if (count === 0) {
+          zoneEl.classList.add("required-zone-empty");
+        } else {
+          zoneEl.classList.remove("required-zone-empty");
+        }
+    }
+  });
+}
+
