@@ -240,3 +240,58 @@ function openEditModal(index) {
   openModal(addEditEmployeeModal);
 }
 
+
+
+function affichierEmployeer() {
+  affEmployeers.innerHTML = "";
+  const nonAssign = storInfoEmploy.filter((e) => e.zone === null);
+
+  if (nonAssign.length === 0) {
+    paraAssignie.style.display = "block";
+    return;
+  }
+  paraAssignie.style.display = "none";
+
+  nonAssign.forEach((employe) => {
+    const realIndex = storInfoEmploy.indexOf(employe);
+
+    const divem = document.createElement("div");
+    divem.className = "employenonassi";
+    divem.dataset.index = realIndex;
+
+    divem.innerHTML = `
+          <div class="parentimg">
+              <img class="imgempl" src="${employe.img}" onerror="this.src='${DEFAULT_PHOTO_URL}'" alt="${employe.name}" />
+          </div>
+          <div class="employe-info">
+              <h3 class="h3" style="font-weight: 500;">${employe.name}</h3>
+              <p class="rols">${employe.role}</p>
+          </div>
+          <div class="employe-actions">
+              <button class="btn btn-secondary edit-employee-btn" data-index="${realIndex}" title="Éditer">
+              </button>
+              <button class="btn btn-danger delete-employee-btn" data-index="${realIndex}" title="Supprimer">
+              </button>
+          </div>
+      `;
+
+    divem.addEventListener("click", (e) => {
+      if (!e.target.closest("button")) {
+        affEmployeersinfo(employe, realIndex);
+      }
+    });
+
+    divem.querySelector(".edit-employee-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      openEditModal(realIndex);
+    });
+    divem
+      .querySelector(".delete-employee-btn")
+      .addEventListener("click", (e) => {
+        e.stopPropagation();
+        deleteEmployee(realIndex);
+      });
+
+    affEmployeers.appendChild(divem);
+  });
+}
