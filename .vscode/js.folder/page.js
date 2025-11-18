@@ -295,3 +295,65 @@ function affichierEmployeer() {
     affEmployeers.appendChild(divem);
   });
 }
+
+
+function affEmployeersinfo(employe, index) {
+  openModal(profileModal);
+  profileModal.innerHTML = "";
+
+  const zoneElement = document.querySelector(`[data-zone="${employe.zone}"]`);
+  const zoneName = employe.zone && zoneElement
+    ? zoneElement.querySelector("h3").textContent
+    : "Non assigné";
+
+  const experiencesHTML =
+    employe.experiences.length > 0
+      ? employe.experiences
+          .map(
+            (exp) => `
+        <p style="margin-bottom: 8px;">
+            <strong>${exp.poste}</strong> chez ${exp.entreprise} <br>
+            <small style="color: #7f8c8d;">${exp.startYear} - ${
+              exp.endYear
+            }</small>
+        </p>
+    `
+          )
+          .join("")
+      : "<p>Aucune expérience enregistrée.</p>";
+
+  const card = document.createElement("div");
+  card.className = "modal-content profile-view";
+
+  card.innerHTML = `
+    <button class="btn btn-danger" style="position: absolute; top: 10px; right: 10px; border-radius: 50%; padding: 5px 10px;" onclick="closeProfileModal()">&times;</button>
+    <img src="${employe.img}" style="width:100px;height:100px;border-radius:50%;object-fit:cover; border: 3px solid var(--color-primary);" onerror="this.src='${DEFAULT_PHOTO_URL}'"/>
+    <h2>${employe.name}</h2>
+    <div class="profile-details" style="text-align: left; max-width: 300px; margin: 10px auto;">
+        <p><strong>Rôle:</strong> ${employe.role}</p>
+        <p><strong>Localisation:</strong> ${zoneName}</p>
+        <p><strong>Email:</strong> ${employe.email}</p>
+        <p><strong>Téléphone:</strong> ${employe.tel}</p>
+    </div>
+    <hr style="width: 80%; margin: 15px auto; border-color: #eee;">
+    <h3>Expériences Professionnelles</h3>
+    <div style="text-align: left; max-height: 200px; overflow-y: auto; padding: 10px;">
+        ${experiencesHTML}
+    </div>
+    <div style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+        <button class="btn btn-primary edit-btn" data-index="${index}">Éditer</button>
+        <button class="btn btn-danger delete-btn" data-index="${index}">Supprimer</button>
+    </div>
+  `;
+
+  card.querySelector(".edit-btn").addEventListener("click", () => {
+    closeModal(profileModal);
+    openEditModal(index);
+  });
+  card.querySelector(".delete-btn").addEventListener("click", () =>
+    deleteEmployee(index)
+  );
+
+  profileModal.appendChild(card);
+}
+
