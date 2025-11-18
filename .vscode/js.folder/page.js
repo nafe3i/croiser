@@ -202,3 +202,41 @@ function ajouterOuEditerEmployer(event) {
   refreshZones();
 }
 
+function openEditModal(index) {
+  const emp = storInfoEmploy[index];
+  if (!emp) return;
+
+  isEditMode = true;
+  editingIndex = index;
+  document.getElementById("modalTitle").textContent = "Éditer l'employé : " + emp.name;
+
+  nameInput.value = emp.name;
+  roleSelect.value = emp.role;
+  imgInput.value = emp.img === DEFAULT_PHOTO_URL ? "" : emp.img;
+  emailInput.value = emp.email;
+  telInput.value = emp.tel;
+
+  previewPhoto(emp.img);
+
+  experiencesList.innerHTML = "";
+  emp.experiences.forEach((exp) => {
+    const expDiv = document.createElement("div");
+    expDiv.className = "experience-item";
+    expDiv.innerHTML = `
+          <button type="button" class="removeExp btn-danger" style="position: absolute; top: 5px; right: 5px; padding: 3px 8px; font-size: 0.8rem; border-radius: 4px;">&times;</button>
+          <label>Poste: <input type="text" placeholder="Poste occupé" class="posteExp" value="${exp.poste}" /></label>
+          <label>Entreprise: <input type="text" placeholder="Entreprise" class="entrepriseExp" value="${exp.entreprise}" /></label>
+          <div class="exp-dates">
+            <label>Début: <input type="number" min="1900" max="${new Date().getFullYear()}" placeholder="Ex: 2020" class="startYearExp" value="${exp.startYear}" /></label>
+            <label>Fin: <input type="number" min="1900" max="${new Date().getFullYear()}" placeholder="Ex: 2023" class="endYearExp" value="${exp.endYear}" /></label>
+          </div>
+      `;
+    expDiv.querySelector(".removeExp").addEventListener("click", () => {
+      expDiv.remove();
+    });
+    experiencesList.appendChild(expDiv);
+  });
+
+  openModal(addEditEmployeeModal);
+}
+
