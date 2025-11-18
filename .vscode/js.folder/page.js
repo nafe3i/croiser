@@ -357,3 +357,18 @@ function affEmployeersinfo(employe, index) {
   profileModal.appendChild(card);
 }
 
+function deleteEmployee(index) {
+  if (
+    confirm(
+      `etes-vous sur de vouloir supprimer ${storInfoEmploy[index].name} ?`
+    )
+  ) {
+    storInfoEmploy.splice(index, 1);
+    saveToLocalStorage();
+    closeModal(profileModal);
+    affichierEmployeer();
+    refreshZones();
+  }
+}
+
+
