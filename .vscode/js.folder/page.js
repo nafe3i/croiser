@@ -47,3 +47,14 @@ const assignList = document.getElementById("assignList");
 const closeAssignModal = document.getElementById("closeAssignModal");
 const assignZoneTitle = document.getElementById("assignZoneTitle");
 
+function saveToLocalStorage() {
+  localStorage.setItem("worksphereEmployees", JSON.stringify(storInfoEmploy));
+}
+
+function loadFromLocalStorage() {
+  const data = localStorage.getItem("worksphereEmployees");
+  if (data) {
+    storInfoEmploy = JSON.parse(data);
+  }
+}
+
