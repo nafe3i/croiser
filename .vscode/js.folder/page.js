@@ -387,3 +387,42 @@ function checkZoneWarnings() {
   });
 }
 
+function refreshZones() {
+  document.querySelectorAll(".zone").forEach((zone) => {
+    const zoneName = zone.dataset.zone;
+    const list = zone.querySelector(".zone-list");
+    const counter = zone.querySelector(".zone-count");
+    const capacity = zoneCapacity[zoneName];
+
+    const inside = storInfoEmploy.filter((e) => e.zone === zoneName);
+
+    list.innerHTML = "";
+
+    inside.forEach((emp) => {
+      const realIndex = storInfoEmploy.indexOf(emp);
+      const div = document.createElement("div");
+      div.className = "empInZone";
+      div.dataset.index = realIndex;
+      div.title = emp.name;
+
+      div.innerHTML = `
+          ${emp.name.split(" ")[0]} 
+          <button title="Retirer de la zone" onclick="unassignEmployee(${realIndex})">&times;</button>
+      `;
+
+      div.addEventListener("click", (e) => {
+        if (!e.target.closest("button")) {
+          affEmployeersinfo(emp, realIndex);
+        }
+      });
+      list.appendChild(div);
+    });
+
+    counter.textContent = `${inside.length} / ${capacity} employé${
+      inside.length > 1 ? "s" : ""
+    }`;
+  });
+
+  checkZoneWarnings();
+}
+
