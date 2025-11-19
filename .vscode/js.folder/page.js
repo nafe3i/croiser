@@ -426,3 +426,38 @@ function refreshZones() {
   checkZoneWarnings();
 }
 
+function canAssign(employeeRole, zoneName) {
+  const allowedZones = zoneRules[employeeRole];
+  if (!allowedZones) {
+    return false;
+  }
+  return allowedZones.includes(zoneName);
+}
+
+function assignEmployee(index, zone) {
+  const employee = storInfoEmploy[index];
+
+  if (!employee) return;
+
+  const countInZone = storInfoEmploy.filter((e) => e.zone === zone).length;
+
+  if (countInZone >= zoneCapacity[zone]) {
+    alert("Zone pleine ! Capacité max atteinte.");
+    return;
+  }
+
+  if (!canAssign(employee.role, zone)) {
+    alert(
+      `L'employé ${employee.name} (Rôle: ${employee.role}) n'est pas autorisé dans cette zone selon les règles métier.`
+    );
+    return;
+  }
+
+  employee.zone = zone;
+  saveToLocalStorage();
+
+  closeModal(assignModal);
+  affichierEmployeer();
+  refreshZones();
+}
+
