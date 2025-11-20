@@ -461,3 +461,17 @@ function assignEmployee(index, zone) {
   refreshZones();
 }
 
+function unassignEmployee(index) {
+  const employee = storInfoEmploy[index];
+  if (!employee) return;
+
+  employee.zone = null;
+  saveToLocalStorage();
+
+  affichierEmployeer();
+  refreshZones();
+}
+
+
+
+
