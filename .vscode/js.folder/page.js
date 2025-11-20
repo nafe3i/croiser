@@ -473,5 +473,49 @@ function unassignEmployee(index) {
 }
 
 
+function openAssignModal(zoneName) {
+  openModal(assignModal);
+  assignZoneTitle.textContent = `Zone: ${
+    document.querySelector(`[data-zone="${zoneName}"] h3`).textContent
+  }`;
+  assignList.innerHTML = "";
+
+  const unassigned = storInfoEmploy.filter((e) => e.zone === null);
+  let eligibleCount = 0;
+
+  unassigned.forEach((emp) => {
+    if (canAssign(emp.role, zoneName)) {
+      eligibleCount++;
+      const realIndex = storInfoEmploy.indexOf(emp);
+      const item = document.createElement("div");
+      item.className = "assignItem";
+      item.innerHTML = `
+          <div style="display: flex; align-items: center;">
+             <img src="${emp.img}" onerror="this.src='${DEFAULT_PHOTO_URL}'" style="width:30px;height:30px;border-radius:50%;object-fit:cover;">
+             <span>${emp.name} (${emp.role})</span>
+          </div>
+          <button class="btn btn-primary assignNowBtn">Assigner</button>
+      `;
+
+      item.querySelector(".assignNowBtn").onclick = () => {
+        assignEmployee(realIndex, zoneName);
+      };
+
+      assignList.appendChild(item);
+    }
+  });
+
+  if (eligibleCount === 0) {
+    assignList.innerHTML =
+      '<p style="text-align:center; color: var(--color-danger); padding: 10px;">Aucun employé non assigné éligible pour cette zone.</p>';
+  }
+}
+
+
+ajouteEmployersBtn.addEventListener("click", () => {
+  resetForm();
+  previewPhoto("");
+  openModal(addEditEmployeeModal);
+});
 
 
