@@ -80,43 +80,7 @@ function previewPhoto(url) {
 imgInput.addEventListener("input", (e) => previewPhoto(e.target.value));
 
 
-function getExperiencesFromForm() {
-  let experiences = [];
-  let isDateValid = true;
-  
-  document.querySelectorAll(".experience-item").forEach((exp, index) => {
-    const poste = exp.querySelector(".posteExp").value.trim();
-    const entreprise = exp.querySelector(".entrepriseExp").value.trim();
-    const startYear = parseInt(exp.querySelector(".startYearExp").value);
-    const endYear = parseInt(exp.querySelector(".endYearExp").value);
-    
-    const isPartiallyFilled = poste || entreprise || !isNaN(startYear) || !isNaN(endYear);
 
-    if (isPartiallyFilled && (poste === "" || entreprise === "" || isNaN(startYear) || isNaN(endYear))) {
-      alert(`Erreur: Veuillez remplir tous les champs (Poste, Entreprise, Début, Fin) de l'expérience #${index + 1} ou la supprimer.`);
-      isDateValid = false;
-      return;
-    }
-
-    if (!isNaN(startYear) && !isNaN(endYear) && startYear > endYear) {
-      alert(
-        `Erreur: L'année de début (${startYear}) doit être antérieure ou égale à l'année de fin (${endYear}) pour l'expérience #${index + 1}.`
-      );
-      isDateValid = false;
-      return;
-    }
-
-    if (isPartiallyFilled) {
-        experiences.push({
-            poste: poste,
-            entreprise: entreprise,
-            startYear: startYear,
-            endYear: endYear,
-        });
-    }
-  });
-  return isDateValid ? experiences : null;
-}
 
 function openModal(modal) {
   modal.classList.remove("modal-hidden");
